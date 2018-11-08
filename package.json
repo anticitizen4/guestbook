@@ -1,0 +1,10 @@
+{
+	"dependencies": {
+		"express": "^4.16.4"
+	},
+	"scripts": {
+		"start": "concurrently \"yarn server\" \"yarn client\"",
+		"client": "cd client && yarn start",
+		"server": "nodemon index.js"
+	}
+}
