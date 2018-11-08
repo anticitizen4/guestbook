@@ -1,30 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
 const app = express();
 
-let id = 0000;
-const entries = [
-	{
-		id: id++,
-		author: "Mike",
-		text: `${"AAAA ".repeat(20)}AAAA`,
-	},
-	{
-		id: id++,
-		author: "Tyrell",
-		text: `${"BBBB ".repeat(20)}BBBB`,
-	},
-	{
-		id: id++,
-		author: "Tyrone",
-		text: `${"CCCC ".repeat(20)}CCCC`,
-	},
-	{
-		id: id++,
-		author: "Tyson",
-		text: `${"DDDD ".repeat(20)}DDDD`,
-	},
-];
+mongoose.connect(
+	"mongodb://localhost/guestbook",
+	{ useNewUrlParser: true }
+);
+const db = mongoose.connection;
+
+const entrySchema = new mongoose.Schema({
+	// todo: add autoincrement id
+	// id: Number,
+	author: String,
+	text: String,
+});
+const Entry = mongoose.model("entry", entrySchema);
 
 app.use("/api", (req, res, next) => {
 	res.setHeader("access-control-allow-origin", "http://localhost:3000");
@@ -32,7 +24,9 @@ app.use("/api", (req, res, next) => {
 });
 
 app.get("/api/getEntries", (req, res, next) => {
-	res.json(entries);
+	Entry.find().then(entries => {
+		res.json(entries);
+	});
 });
 
 app.post(
@@ -41,12 +35,11 @@ app.post(
 	bodyParser.urlencoded({ extended: true }),
 
 	(req, res, next) => {
-		const newEntry = {
-			id: id++,
+		const entry = new Entry({
 			author: req.body.author,
 			text: req.body.text,
-		};
-		entries.push(newEntry);
+		});
+		entry.save();
 
 		res.status(200).send();
 		next();

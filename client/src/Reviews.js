@@ -21,15 +21,14 @@ class Reviews extends Component {
 
 	render() {
 		const { entries } = this.state;
-		console.log(entries);
 
 		return (
 			<>
-				{entries.map(entry => {
+				{entries.map(({ _id: id, author, text }) => {
 					return (
-						<Segment key={entry.id}>
-							<Header as="h4">{entry.author}</Header>
-							<p>{entry.text}</p>
+						<Segment key={id}>
+							<Header as="h4">{author}</Header>
+							<p>{text}</p>
 						</Segment>
 					);
 				})}
