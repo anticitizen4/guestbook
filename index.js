@@ -46,4 +46,15 @@ app.post(
 	}
 );
 
+app.post(
+	"/api/delete",
+
+	(req, res, next) => {
+		Entry.deleteMany().then(console.log);
+
+		res.status(200).send();
+		next();
+	}
+);
+
 app.listen(5000);

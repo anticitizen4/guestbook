@@ -27,7 +27,7 @@ class Reviews extends Component {
 				{entries.map(({ _id: id, author, text }) => {
 					return (
 						<Segment key={id}>
-							<Header as="h4">{author}</Header>
+							{author && <Header as="h4">{author}</Header>}
 							<p>{text}</p>
 						</Segment>
 					);
