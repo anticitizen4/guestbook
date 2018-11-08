@@ -1,14 +1,17 @@
 const api = {
 	async getAll() {
-		const res = await fetch("http://localhost:5000/api/getEntries");
+		const res = await fetch("http://localhost:5000/api/getAll");
 		const data = await res.json();
 
 		return data;
 	},
 
 	async add(data) {
-		const res = await fetch(`http://localhost:5000/api/newEntry`, {
+		const res = await fetch("http://localhost:5000/api/add", {
 			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
 			body: data,
 		});
 
@@ -16,7 +19,7 @@ const api = {
 	},
 
 	async deleteAll() {
-		const res = await fetch("http://localhost:5000/api/delete", {
+		const res = await fetch("http://localhost:5000/api/deleteAll", {
 			method: "POST",
 		});
 

@@ -8,7 +8,6 @@ mongoose.connect(
 	"mongodb://localhost/guestbook",
 	{ useNewUrlParser: true }
 );
-const db = mongoose.connection;
 
 const entrySchema = new mongoose.Schema({
 	// todo: add autoincrement id
@@ -20,19 +19,20 @@ const Entry = mongoose.model("entry", entrySchema);
 
 app.use("/api", (req, res, next) => {
 	res.setHeader("access-control-allow-origin", "http://localhost:3000");
+	res.setHeader("access-control-allow-headers", "content-type");
 	next();
 });
 
-app.get("/api/getEntries", (req, res, next) => {
+app.get("/api/getAll", (req, res, next) => {
 	Entry.find().then(entries => {
 		res.json(entries);
 	});
 });
 
 app.post(
-	"/api/newEntry",
+	"/api/add",
 
-	bodyParser.urlencoded({ extended: true }),
+	bodyParser.json(),
 
 	(req, res, next) => {
 		const entry = new Entry({
@@ -47,7 +47,7 @@ app.post(
 );
 
 app.post(
-	"/api/delete",
+	"/api/deleteAll",
 
 	(req, res, next) => {
 		Entry.deleteMany().then(console.log);

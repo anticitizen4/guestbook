@@ -3,34 +3,45 @@ import { Segment, Form } from "semantic-ui-react";
 import api from "./api";
 
 class Submit extends Component {
-	// constructor() {
-	// 	super();
-	// 	this.state = {
-	// 		entries: [],
-	// 	};
-	// }
+	constructor() {
+		super();
 
-	// componentDidMount() {
-	// 	this.getEntries().then(entries => this.setState({ entries }));
-	// }
-
-	// async getEntries() {
-	// 	const res = await fetch("http://localhost:5000/api/getEntries");
-	// 	const data = await res.json();
-	// 	return data;
-	// }
-
-	handleSubmit({ target }) {
-		const data = new URLSearchParams(new FormData(target));
-		api.add(data);
+		this.state = {
+			author: "",
+			text: "",
+		};
 	}
+
+	handleChange = event => {
+		const val = event.target.value;
+		const name = event.target.name;
+		this.setState({ [name]: val });
+	};
+
+	handleSubmit = _ => {
+		const data = JSON.stringify(this.state);
+
+		this.setState({
+			author: "",
+			text: "",
+		});
+
+		api.add(data);
+	};
 
 	render() {
 		return (
 			<Segment>
 				<Form className="new-review-form" onSubmit={this.handleSubmit}>
-					<Form.Input name="author" placeholder="name (optional)" />
+					<Form.Input
+						value={this.state.author}
+						onChange={this.handleChange}
+						name="author"
+						placeholder="name (optional)"
+					/>
 					<Form.TextArea
+						value={this.state.text}
+						onChange={this.handleChange}
 						name="text"
 						autoHeight
 						placeholder="enter review here..."
