@@ -4,15 +4,15 @@ import { Route, Link } from "react-router-dom";
 
 import Reviews from "./Reviews";
 import Submit from "./Submit";
+import api from "./api";
 
 import "./main.scss";
 
 class App extends Component {
 	handleDelete() {
-		fetch("http://localhost:5000/api/delete", { method: "POST" }).then(
-			res => console.log(res.status)
-		);
+		api.deleteAll();
 	}
+
 	render() {
 		return (
 			<div className="container">

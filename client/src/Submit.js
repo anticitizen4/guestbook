@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Segment, TextArea, Form, Button } from "semantic-ui-react";
+import { Segment, Form } from "semantic-ui-react";
+import api from "./api";
 
 class Submit extends Component {
 	// constructor() {
@@ -21,20 +22,14 @@ class Submit extends Component {
 
 	handleSubmit({ target }) {
 		const data = new URLSearchParams(new FormData(target));
-		fetch(`http://localhost:5000/api/newEntry`, {
-			method: "POST",
-			body: data,
-		});
+		api.add(data);
 	}
 
 	render() {
 		return (
 			<Segment>
 				<Form className="new-review-form" onSubmit={this.handleSubmit}>
-					<Form.Input
-						name="author"
-						placeholder="name (optional)"
-					/>
+					<Form.Input name="author" placeholder="name (optional)" />
 					<Form.TextArea
 						name="text"
 						autoHeight

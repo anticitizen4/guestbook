@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Segment, Header } from "semantic-ui-react";
+import api from "./api";
 
 class Reviews extends Component {
 	constructor() {
@@ -10,13 +11,7 @@ class Reviews extends Component {
 	}
 
 	componentDidMount() {
-		this.getEntries().then(entries => this.setState({ entries }));
-	}
-
-	async getEntries() {
-		const res = await fetch("http://localhost:5000/api/getEntries");
-		const data = await res.json();
-		return data;
+		api.getAll().then(entries => this.setState({ entries }));
 	}
 
 	render() {
