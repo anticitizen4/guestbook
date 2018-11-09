@@ -13,8 +13,8 @@ class Submit extends Component {
 	}
 
 	handleChange = event => {
-		const val = event.target.value;
 		const name = event.target.name;
+		const val = event.target.value;
 		this.setState({ [name]: val });
 	};
 
