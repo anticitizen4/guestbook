@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Segment, Button } from "semantic-ui-react";
-import api from "./api";
+import api from "../api/api";
 
 class Delete extends Component {
 	handleDelete() {

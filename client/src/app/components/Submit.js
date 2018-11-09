@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Segment, Form } from "semantic-ui-react";
-import api from "./api";
+import api from "../api/api";
 
 class Submit extends Component {
 	constructor() {

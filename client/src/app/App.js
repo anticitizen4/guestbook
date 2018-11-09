@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
-import MainMenu from "./Menu";
-import Reviews from "./Reviews";
-import Submit from "./Submit";
-import Delete from "./Delete";
+import MainMenu from "./components/Menu";
+import Reviews from "./components/Reviews";
+import Submit from "./components/Submit";
+import Delete from "./components/Delete";
 
-import "./main.scss";
+import "./app.scss";
 
 class App extends Component {
 	render() {

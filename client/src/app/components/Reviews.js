@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Segment, Header } from "semantic-ui-react";
-import api from "./api";
+import api from "../api/api";
 
 class Reviews extends Component {
 	constructor() {
