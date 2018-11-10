@@ -3,9 +3,9 @@ import { Segment, Button } from "semantic-ui-react";
 import api from "../api/api";
 
 class Delete extends Component {
-	handleDelete() {
-		api.deleteAll();
-	}
+	handleDelete = _ => {
+		api.deleteAll().then(res => this.props.displayMessage(res.status));
+	};
 
 	render() {
 		return (

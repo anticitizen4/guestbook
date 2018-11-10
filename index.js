@@ -17,43 +17,46 @@ const entrySchema = new mongoose.Schema({
 });
 const Entry = mongoose.model("entry", entrySchema);
 
-app.use("/api", (req, res, next) => {
-	res.setHeader("access-control-allow-origin", "http://localhost:3000");
-	res.setHeader("access-control-allow-headers", "content-type");
-	next();
-});
+app.use(
+	"/api",
 
-app.get("/api/getAll", (req, res, next) => {
-	Entry.find().then(entries => {
+	(req, res, next) => {
+		res.setHeader("access-control-allow-origin", "http://localhost:3000");
+		res.setHeader("access-control-allow-headers", "content-type");
+		next();
+	}
+);
+
+app.get(
+	"/api/getAll",
+
+	async (req, res) => {
+		entries = await Entry.find();
 		res.json(entries);
-	});
-});
+	}
+);
 
 app.post(
 	"/api/add",
 
 	bodyParser.json(),
 
-	(req, res, next) => {
+	async (req, res) => {
 		const entry = new Entry({
 			author: req.body.author,
 			text: req.body.text,
 		});
-		entry.save();
-
-		res.status(200).send();
-		next();
+		const result = await entry.save();
+		res.send(result);
 	}
 );
 
 app.post(
 	"/api/deleteAll",
 
-	(req, res, next) => {
-		Entry.deleteMany().then(console.log);
-
-		res.status(200).send();
-		next();
+	async (req, res) => {
+		const result = await Entry.deleteMany();
+		res.send(result);
 	}
 );
 

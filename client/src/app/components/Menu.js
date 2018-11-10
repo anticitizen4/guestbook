@@ -1,6 +1,6 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
+import { Menu } from "semantic-ui-react";
 
 function bindProps(Component, propsToBind) {
 	return props => <Component {...propsToBind} {...props} />;

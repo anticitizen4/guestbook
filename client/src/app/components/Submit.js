@@ -19,14 +19,12 @@ class Submit extends Component {
 	};
 
 	handleSubmit = _ => {
-		const data = JSON.stringify(this.state);
+		const { author, text } = this.state;
+		const data = JSON.stringify({ author, text });
 
-		this.setState({
-			author: "",
-			text: "",
-		});
+		this.setState({ author: "", text: "" });
 
-		api.add(data);
+		api.add(data).then(res => this.props.displayMessage(res.status));
 	};
 
 	render() {
