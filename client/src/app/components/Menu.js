@@ -17,6 +17,7 @@ const BoundMenuItem = bindProps(Menu.Item, props);
 function MainMenu(props) {
 	return (
 		<Menu>
+			<Menu.Item content="guestbook" header />
 			<BoundMenuItem to="/" content="reviews" />
 			<BoundMenuItem to="/submit" content="submit new review" />
 			<BoundMenuItem to="/delete" content="delete reviews" />

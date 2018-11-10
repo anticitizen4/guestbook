@@ -10,8 +10,6 @@ mongoose.connect(
 );
 
 const entrySchema = new mongoose.Schema({
-	// todo: add autoincrement id
-	// id: Number,
 	author: String,
 	text: String,
 });
