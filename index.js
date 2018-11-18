@@ -29,7 +29,7 @@ app.get(
 	"/api/getAll",
 
 	async (req, res) => {
-		entries = await Entry.find();
+		const entries = await Entry.find();
 		res.json(entries);
 	}
 );
