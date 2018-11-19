@@ -1,13 +1,24 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
 
-mongoose.connect(
-	"mongodb://localhost/guestbook",
-	{ useNewUrlParser: true }
-);
+const mongoUrl = "mongodb://localhost/guestbook";
+mongoose
+	.connect(
+		mongoUrl,
+		{ useNewUrlParser: true }
+	)
+	.then(res => {
+		console.log("connected");
+		// console.log(res);
+	})
+	.catch(err => {
+		console.log("connection error");
+		// console.log(err);
+	});
 
 const entrySchema = new mongoose.Schema({
 	author: String,
@@ -19,7 +30,7 @@ app.use(
 	"/api",
 
 	(req, res, next) => {
-		res.setHeader("access-control-allow-origin", "http://localhost:3000");
+		res.setHeader("access-control-allow-origin", "*");
 		res.setHeader("access-control-allow-headers", "content-type");
 		next();
 	}
@@ -58,4 +69,13 @@ app.post(
 	}
 );
 
-app.listen(5000);
+app.get(["/", "/submit", "/delete"], (req, res, next) => {
+	res.sendFile(path.resolve(__dirname, "client/index.html"));
+});
+
+app.use((req, res, next) => {
+	res.redirect("/");
+});
+
+app.listen(process.env.PORT || 5000);
+console.log(`listening on port ${process.env.PORT}`);
